@@ -4,6 +4,7 @@
 #WORKDIR app
 #RUN gradle bootJar --no-daemon
 
+
 FROM gradle:8.5-jdk21 AS build
 COPY --chown=gradle:gradle . /app
 WORKDIR /app
