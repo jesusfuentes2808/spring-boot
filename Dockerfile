@@ -8,7 +8,7 @@
 FROM gradle:8.5-jdk21 AS build
 COPY --chown=gradle:gradle . /app
 WORKDIR /app
-RUN gradle bootJar --no-daemon
+RUN gradle bootJar --no-daemon -Dorg.gradle.jvmargs="-Xmx256m -XX:MaxMetaspaceSize=128m"
 
 
 FROM eclipse-temurin:21-jdk
