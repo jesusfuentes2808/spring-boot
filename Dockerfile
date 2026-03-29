@@ -3,15 +3,12 @@
 #COPY --chown=gradle.gradle . /app
 #WORKDIR app
 #RUN gradle bootJar --no-daemon
-
-
 FROM gradle:8.5-jdk21 AS build
 COPY --chown=gradle:gradle . /app
 WORKDIR /app
-RUN gradle bootJar --no-daemon -Dorg.gradle.jvmargs="-Xmx256m -XX:MaxMetaspaceSize=128m"
+RUN gradle bootJar --no-daemon
 
-
-FROM eclipse-temurin:21-jdk
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=build /app/build/libs/*.jar play.jar
 EXPOSE 8080
